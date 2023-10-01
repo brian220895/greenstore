@@ -41,11 +41,17 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     screens:{
-         sm:'480px',
-         md:'1024px',
-         lg:'1235px'
+         sm:'450px',
+         md:'766px',
+         lg:'1400px'
           },
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'imgBg': 'url(assets/bg.jpg)'
+      }
+
+
+    },
   },
   plugins: [],
 }
