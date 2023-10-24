@@ -1,52 +1,83 @@
 // Import the functions you need from the SDKs you need
+
+
+
+
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import {getStorage} from 'firebase/storage'
 import { getAuth } from "firebase/auth";
+import { getMessaging, getToken } from "firebase/messaging";
+
+// import { getMessaging } from "firebase/messaging/sw";
+// import { onBackgroundMessage } from "firebase/messaging/sw";
+
+
+// console.log('dotenv.config()', process.env.REACT_APP_API)
+
+
+
+// console.log('DDDDDDD',process.env.REACT_APP_APIKEY)
+// console.log('OOOOO',process.env.REACT_APP_AUTHDOMAIN)
+// console.log('XXXX',process.env.REACT_APP_PROJECTID)
+// console.log('YYYYYY',process.env.REACT_APP_STORAGEBUCKET)
+// console.log('SSSSSS',process.env.REACT_APP_MESSAGINGSENDERID)
+// console.log('IIIIIIIIII',process.env.REACT_APP_APPID)
+// console.log('PPPPPPPP',process.env.REACT_APP_MEASUREMENTID)
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBhy7LJ401L2QNiBDB8eCQazXTI3rqCKjY",
-  authDomain: "greenstore-f6a65.firebaseapp.com",
-  projectId: "greenstore-f6a65",
-  storageBucket: "greenstore-f6a65.appspot.com",
-  messagingSenderId: "416147996110",
-  appId: "1:416147996110:web:6125ed2cd1a4ed5d47ff9f",
-  measurementId: "G-WT5T7YJ2E5"
+  apiKey:process.env.REACT_APP_APIKEY,
+  authDomain:process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId:process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId:process.env.REACT_APP_MEASUREMENTID
 };
-
+// greenstore-f6a65.firebaseapp.com
+// greenstore-f6a65.firebaseapp.com
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 // console.log('db', 'sadsad')
 export const storage = getStorage(app);
 
-// import { initializeApp } from "firebase/app";
-// import {getFirestore} from 'firebase/firestore'
-// import {getStorage} from 'firebase/storage'
-// // import { getAnalytics } from "firebase/analytics";
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
+  const messaging = getMessaging(app);
+      // getToken(messaging, {
+      //   vapidKey:
+      //     "BJEjjCIZQA3XMaM4LdxF7eQ-VYQfq8dmVDurrDPtQV-rtA-aZA7uenkM1YiI_o3Ej7PBTYgE0CWzPjjA16BuFoU",
+      // }).then((currentToken) => {
+      //   if (currentToken) {
+      //     console.log("currentToken: ", currentToken);
+      //   } else {
+      //     console.log("Can not get token");
+      //   }
+      // });
 
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBlHBz93J5p-uxljS2fdU6q-PxWsRInp5w",
-//   authDomain: "hinh-4cb2a.firebaseapp.com",
-//   projectId: "hinh-4cb2a",
-//   storageBucket: "hinh-4cb2a.appspot.com",
-//   messagingSenderId: "303978664768",
-//   appId: "1:303978664768:web:d59287f19e10187b08e0a5"
-// };
 
-// // Initialize Firebase
-// export const app = initializeApp(firebaseConfig);
-// export const db = getFirestore(app)
-// // console.log('db', db)
-// export const storage = getStorage(app)
+
+
+function requestPermission() {
+  console.log("Requesting permission...");
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      console.log("Notification permission granted.");
+      // const app = initializeApp(firebaseConfig);
+
+     
+    } else {
+      console.log("Do not have permission!");
+    }
+  });
+}
+
+requestPermission();
